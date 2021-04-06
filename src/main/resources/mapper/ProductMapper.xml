@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.cyc.mapper.ProductMapper">
+  <resultMap id="BaseResultMap" type="cn.cyc.model.Product">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="type" jdbcType="INTEGER" property="type" />
+    <result column="startTime" jdbcType="BIGINT" property="starttime" />
+    <result column="endTime" jdbcType="BIGINT" property="endtime" />
+    <result column="fee" jdbcType="INTEGER" property="fee" />
+    <result column="create" jdbcType="BIGINT" property="create" />
+    <result column="reserveId" jdbcType="INTEGER" property="reserveid" />
+    <result column="serviceId" jdbcType="INTEGER" property="serviceid" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, type, startTime, endTime, fee, create, reserveId, serviceId, status
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_product
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_product
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="cn.cyc.model.Product">
+    insert into t_product (id, type, startTime, 
+      endTime, fee, create, 
+      reserveId, serviceId, status
+      )
+    values (#{id,jdbcType=INTEGER}, #{type,jdbcType=INTEGER}, #{starttime,jdbcType=BIGINT}, 
+      #{endtime,jdbcType=BIGINT}, #{fee,jdbcType=INTEGER}, #{create,jdbcType=BIGINT}, 
+      #{reserveid,jdbcType=INTEGER}, #{serviceid,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="cn.cyc.model.Product">
+    insert into t_product
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="starttime != null">
+        startTime,
+      </if>
+      <if test="endtime != null">
+        endTime,
+      </if>
+      <if test="fee != null">
+        fee,
+      </if>
+      <if test="create != null">
+        create,
+      </if>
+      <if test="reserveid != null">
+        reserveId,
+      </if>
+      <if test="serviceid != null">
+        serviceId,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="starttime != null">
+        #{starttime,jdbcType=BIGINT},
+      </if>
+      <if test="endtime != null">
+        #{endtime,jdbcType=BIGINT},
+      </if>
+      <if test="fee != null">
+        #{fee,jdbcType=INTEGER},
+      </if>
+      <if test="create != null">
+        #{create,jdbcType=BIGINT},
+      </if>
+      <if test="reserveid != null">
+        #{reserveid,jdbcType=INTEGER},
+      </if>
+      <if test="serviceid != null">
+        #{serviceid,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.cyc.model.Product">
+    update t_product
+    <set>
+      <if test="type != null">
+        type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="starttime != null">
+        startTime = #{starttime,jdbcType=BIGINT},
+      </if>
+      <if test="endtime != null">
+        endTime = #{endtime,jdbcType=BIGINT},
+      </if>
+      <if test="fee != null">
+        fee = #{fee,jdbcType=INTEGER},
+      </if>
+      <if test="create != null">
+        create = #{create,jdbcType=BIGINT},
+      </if>
+      <if test="reserveid != null">
+        reserveId = #{reserveid,jdbcType=INTEGER},
+      </if>
+      <if test="serviceid != null">
+        serviceId = #{serviceid,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.cyc.model.Product">
+    update t_product
+    set type = #{type,jdbcType=INTEGER},
+      startTime = #{starttime,jdbcType=BIGINT},
+      endTime = #{endtime,jdbcType=BIGINT},
+      fee = #{fee,jdbcType=INTEGER},
+      create = #{create,jdbcType=BIGINT},
+      reserveId = #{reserveid,jdbcType=INTEGER},
+      serviceId = #{serviceid,jdbcType=INTEGER},
+      status = #{status,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

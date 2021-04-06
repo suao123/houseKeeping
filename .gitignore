@@ -29,3 +29,8 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### mybatis 反向生成工具
+
+src/main/java/cn/cyc/mybatis
+src/main/resources/mybatis
