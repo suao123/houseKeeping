@@ -26,7 +26,7 @@
     delete from t_user
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="cn.cyc.model.User">
+  <insert id="insert" keyProperty="id" useGeneratedKeys="true" keyColumn="id" parameterType="cn.cyc.model.User">
     insert into t_user (id, username, password, 
       name, sex, old, phone, 
       education, created, ban)
@@ -147,4 +147,10 @@
       ban = #{ban,jdbcType=BIT}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <select id="selectAll" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from t_user
+  </select>
 </mapper>
