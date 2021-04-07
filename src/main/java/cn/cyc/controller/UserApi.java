@@ -2,6 +2,7 @@ package cn.cyc.controller;
 
 import cn.cyc.model.User;
 import cn.cyc.service.UserSercive;
+import cn.cyc.utils.BaseUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -51,13 +52,7 @@ public class UserApi {
      */
     @PostMapping("/{userId}/ban")
     public HashMap<String, String> banUser(@PathVariable("userId") int userId) {
-        HashMap<String, String> result = new HashMap<>();
-        if (userSercive.banUser(userId)) {
-            result.put("msg", "true");
-        } else {
-            result.put("msg", "true");
-        }
-        return result;
+        return BaseUtils.getResult(userSercive.banUser(userId));
     }
 
     /**
@@ -67,23 +62,22 @@ public class UserApi {
      */
     @PostMapping("/{userId}/unban")
     public HashMap<String, String> unBanUser(@PathVariable("userId") int userId) {
-        HashMap<String, String> result = new HashMap<>();
-        if (userSercive.unBanUser(userId)) {
-            result.put("msg", "true");
-        } else {
-            result.put("msg", "true");
-        }
-        return result;
+        return BaseUtils.getResult(userSercive.unBanUser(userId));
     }
 
+    /**
+     * 修改 用户信息
+     * @param user
+     * @return
+     */
     @PostMapping("/{userId}/profile")
     public HashMap<String, String> updateUser(@ModelAttribute User user) {
-        HashMap<String, String> result = new HashMap<>();
-        if (userSercive.updateProfile(user)) {
-            result.put("msg", "true");
-        } else {
-            result.put("msg", "true");
-        }
-        return result;
+        return BaseUtils.getResult(userSercive.updateProfile(user));
+    }
+
+    @PostMapping("/check")
+    public HashMap<String, String> isUser(@RequestParam("username") String username,
+                                          @RequestParam("password") String password) {
+        return BaseUtils.getResult(userSercive.isUser(username, password));
     }
 }

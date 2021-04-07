@@ -53,4 +53,10 @@ public class UserServiceImpl implements UserSercive {
         userMapper.updateByPrimaryKey(user);
         return true;
     }
+
+    @Override
+    public boolean isUser(String username, String password) {
+        User user = userMapper.selectUserByUsername(username);
+        return user.getPassword().equals(password);
+    }
 }

@@ -50,4 +50,11 @@ public interface UserSercive {
      * @return
      */
     Boolean updateProfile(User user);
+
+    /**
+     * 判断 是否存在账号
+     * @param username
+     * @return
+     */
+    boolean isUser(String username, String password);
 }
