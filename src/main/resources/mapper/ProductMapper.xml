@@ -11,9 +11,10 @@
     <result column="reserveId" jdbcType="INTEGER" property="reserveid" />
     <result column="serviceId" jdbcType="INTEGER" property="serviceid" />
     <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="deleted" jdbcType="BIT" property="deleted" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, type, startTime, endTime, fee, create, reserveId, serviceId, status
+    id, type, startTime, endTime, fee, create, reserveId, serviceId, status, deleted
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -25,15 +26,15 @@
     delete from t_product
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="cn.cyc.model.Product">
+  <insert id="insert" keyColumn="id" useGeneratedKeys="true" keyProperty="id" parameterType="cn.cyc.model.Product">
     insert into t_product (id, type, startTime, 
       endTime, fee, create, 
-      reserveId, serviceId, status
-      )
+      reserveId, serviceId, status, 
+      deleted)
     values (#{id,jdbcType=INTEGER}, #{type,jdbcType=INTEGER}, #{starttime,jdbcType=BIGINT}, 
       #{endtime,jdbcType=BIGINT}, #{fee,jdbcType=INTEGER}, #{create,jdbcType=BIGINT}, 
-      #{reserveid,jdbcType=INTEGER}, #{serviceid,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}
-      )
+      #{reserveid,jdbcType=INTEGER}, #{serviceid,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, 
+      #{deleted,jdbcType=BIT})
   </insert>
   <insert id="insertSelective" parameterType="cn.cyc.model.Product">
     insert into t_product
@@ -65,6 +66,9 @@
       <if test="status != null">
         status,
       </if>
+      <if test="deleted != null">
+        deleted,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -93,6 +97,9 @@
       </if>
       <if test="status != null">
         #{status,jdbcType=INTEGER},
+      </if>
+      <if test="deleted != null">
+        #{deleted,jdbcType=BIT},
       </if>
     </trim>
   </insert>
@@ -123,6 +130,9 @@
       <if test="status != null">
         status = #{status,jdbcType=INTEGER},
       </if>
+      <if test="deleted != null">
+        deleted = #{deleted,jdbcType=BIT},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -135,7 +145,20 @@
       create = #{create,jdbcType=BIGINT},
       reserveId = #{reserveid,jdbcType=INTEGER},
       serviceId = #{serviceid,jdbcType=INTEGER},
-      status = #{status,jdbcType=INTEGER}
+      status = #{status,jdbcType=INTEGER},
+      deleted = #{deleted,jdbcType=BIT}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <select id="getAll" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from t_product
+  </select>
+
+  <select id="getActiveProduct" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from t_product
+            where deleted = false AND status = 1
+  </select>
 </mapper>

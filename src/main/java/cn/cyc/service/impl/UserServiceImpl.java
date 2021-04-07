@@ -1,6 +1,6 @@
 package cn.cyc.service.impl;
 
-import cn.cyc.constant.UserContant;
+import cn.cyc.constant.UserConstant;
 import cn.cyc.mapper.UserMapper;
 import cn.cyc.model.User;
 import cn.cyc.service.UserSercive;
@@ -35,7 +35,7 @@ public class UserServiceImpl implements UserSercive {
     @Override
     public boolean banUser(int id) {
         User user = userMapper.selectByPrimaryKey(id);
-        user.setBan(UserContant.BAN);
+        user.setBan(UserConstant.BAN);
         userMapper.updateByPrimaryKey(user);
         return true;
     }
@@ -43,7 +43,13 @@ public class UserServiceImpl implements UserSercive {
     @Override
     public boolean unBanUser(int id) {
         User user = userMapper.selectByPrimaryKey(id);
-        user.setBan(UserContant.FREE);
+        user.setBan(UserConstant.FREE);
+        userMapper.updateByPrimaryKey(user);
+        return true;
+    }
+
+    @Override
+    public Boolean updateProfile(User user) {
         userMapper.updateByPrimaryKey(user);
         return true;
     }

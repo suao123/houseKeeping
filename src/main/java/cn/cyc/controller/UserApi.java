@@ -60,10 +60,26 @@ public class UserApi {
         return result;
     }
 
+    /**
+     * 解禁 用户
+     * @param userId
+     * @return
+     */
     @PostMapping("/{userId}/unban")
     public HashMap<String, String> unBanUser(@PathVariable("userId") int userId) {
         HashMap<String, String> result = new HashMap<>();
         if (userSercive.unBanUser(userId)) {
+            result.put("msg", "true");
+        } else {
+            result.put("msg", "true");
+        }
+        return result;
+    }
+
+    @PostMapping("/{userId}/profile")
+    public HashMap<String, String> updateUser(@ModelAttribute User user) {
+        HashMap<String, String> result = new HashMap<>();
+        if (userSercive.updateProfile(user)) {
             result.put("msg", "true");
         } else {
             result.put("msg", "true");

@@ -21,6 +21,8 @@ public class Product implements Serializable {
 
     private Integer status;
 
+    private Boolean deleted;
+
     private static final long serialVersionUID = 1L;
 
     public Integer getId() {
@@ -95,6 +97,14 @@ public class Product implements Serializable {
         this.status = status;
     }
 
+    public Boolean getDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(Boolean deleted) {
+        this.deleted = deleted;
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -110,6 +120,7 @@ public class Product implements Serializable {
         sb.append(", reserveid=").append(reserveid);
         sb.append(", serviceid=").append(serviceid);
         sb.append(", status=").append(status);
+        sb.append(", deleted=").append(deleted);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

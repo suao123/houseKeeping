@@ -43,4 +43,11 @@ public interface UserSercive {
      * @return
      */
     boolean unBanUser(int id);
+
+    /**
+     * 更新用户信息
+     * @param user
+     * @return
+     */
+    Boolean updateProfile(User user);
 }
